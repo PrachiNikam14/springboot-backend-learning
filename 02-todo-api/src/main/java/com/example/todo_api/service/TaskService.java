@@ -11,6 +11,7 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
 
@@ -35,6 +36,14 @@ public class TaskService {
 
     public Task getTaskByid(Long id){
         return taskRepository.findById(id).orElse(null);
+    }
+
+    public List<Task> getCompletedTasks(){
+        return taskRepository.findByCompleted(true);
+    }
+
+    public List<Task> getPendingTasks(){
+        return taskRepository.findByCompleted(false);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.todo_api.controller;
 
-
 import com.example.todo_api.entity.Task;
 import com.example.todo_api.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/Tasks")
 public class TaskController {
 
     private final TaskService taskService;
+
+
+    //Constructor injection
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -39,5 +41,15 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+    }
+
+    @GetMapping("/completed")
+    public List<Task> getCompletedTasks(){
+        return taskService.getCompletedTasks();
+    }
+
+    @GetMapping("/pending")
+    public List<Task> getPendingTasks(){
+        return taskService.getPendingTasks();
     }
 }
